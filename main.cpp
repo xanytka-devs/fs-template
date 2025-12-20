@@ -1,4 +1,4 @@
-#include "engine/include/firesteel.hpp"
+#include <firesteel/firesteel.hpp>
 using namespace Firesteel;
 
 // Entities are basicly 3d models,
@@ -12,7 +12,7 @@ Camera camera{glm::vec3(0), glm::vec3(0, 0, -90)};
 
 class ExampleApp : public App {
 	// Runs after window and renderer initialization.
-	virtual void onInitialize() override {
+	void onInitialize() override {
 		// Loads model for entity from file.
 		box.load("res\\box.obj");
 		// Initializes shader from vertex and fragment ones.
@@ -23,11 +23,9 @@ class ExampleApp : public App {
 	}
 	
 	// Runs each frame.
-	virtual void onUpdate() override {
-		// General routine (update window size and camera aspect).
+	void onUpdate() override {
+		// Update camera aspect.
 		camera.aspect = window.aspect();
-		glViewport(0, 0, static_cast<GLsizei>(window.getWidth()), static_cast<GLsizei>(window.getHeight()));
-		window.clearBuffers();
 		// Store camera's view and projection.
 		// Learn more: https://learnopengl.com/Getting-started/Camera
 		glm::mat4 projection = camera.getProjection(),
@@ -41,7 +39,7 @@ class ExampleApp : public App {
 	}
 	
 	// Runs after window.close() is called or on window closing.
-	virtual void onShutdown() override {
+	void onShutdown() override {
 		// Clean up leftover resources.
 		box.remove();
 		shader->remove();
